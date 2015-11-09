@@ -18,9 +18,5 @@ public interface CruRepository<T extends Object, ID extends Serializable> extend
 
     public boolean exists(ID id);
 
-    public Iterable<T> findAll();
-
-    public Iterable<T> findAll(Iterable<ID> itrbl);
-
     public long count();
 }

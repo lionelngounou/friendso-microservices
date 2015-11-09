@@ -1,5 +1,6 @@
 package sample.friendso.user;
 
+import java.util.Date;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -34,7 +35,10 @@ public class UserApp /*extends RepositoryRestConfigurerAdapter*/ {
             public void run(String[] strings) throws Exception{
                 long totalUsers = userRepository.count();
                 System.out.println("@@@% Total users : " + totalUsers);
-                userRepository.save(new User("test@user.com", "password", "test", "user"));
+                User user = new User("test@user.com", "password", "test", "user");
+                user.setActive(Boolean.TRUE);
+                user.setDateCreated(new Date());
+                userRepository.save(user);
             }
         };
     }

@@ -27,9 +27,6 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(unique = true)
-    private String appId;
-
     @NotEmpty
     @Column(unique = true, nullable = false)
     private String email;
@@ -44,7 +41,8 @@ public class User implements Serializable {
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
-
+    
+    @JsonIgnore
     @Type(type = "yes_no")
     private Boolean active = Boolean.FALSE;
 
@@ -57,10 +55,20 @@ public class User implements Serializable {
         this.firstname = firstname;
         this.lastname = lastname;
     }
+    
+    public User(UserForm userForm) {
+        this(userForm.getEmail(), "password", userForm.getFirstname(), userForm.getLastname());
+    }
 
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
+    }
+    
+    public User populate(User user){
+        setFirstname(user.firstname);
+        setLastname(user.lastname);
+        return this;
     }
 
     @Override
@@ -98,11 +106,7 @@ public class User implements Serializable {
     }
 
     public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
+        return "US-0-" + id;
     }
 
     public String getEmail() {
