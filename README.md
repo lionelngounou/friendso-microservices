@@ -38,4 +38,3 @@ Email service
 	[#] email [id, to_email, subject, content, dateSent]
 	[~] Listen to user created event
 
-@ -> immutable
