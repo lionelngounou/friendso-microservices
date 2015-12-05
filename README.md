@@ -9,32 +9,31 @@ A bit like facebook, the following can be done through the app:
 - only see friends posts/comments
 - etc...
 
->> API Gateway (Bootstrap, HTML, Javascript, Angularjs, URL resolution, rest, Authentication, Authorisation, Grails, Hystrix, Eureka)
+/=/ API Gateway (Bootstrap, HTML, Javascript, Angularjs, URL resolution, rest, Authentication, Authorisation, Grails, Hystrix, Eureka)
 
->> User service (rest, mysql, grails/jax/springboot, Authentication, Authorisation, Eureka)
+/=/ User service (rest, mysql, grails/jax/springboot, Authentication, Authorisation, Eureka)
 	[#] User [id, app_id, firstname, lastname, email/username, password, dateCreated, lastLogin, active]
 
->> Posts/Comments service (rest, nodejs, Eureka)
+/=/ Posts/Comments service (rest, nodejs, Eureka)
 	[#] Post [id, user_id, content, dateCreated, deleted]
 	[#] Post_Comment [id, post_id, user_id, user_firstname, content, dateCreated, deleted]
 	[~] Listen to user [firstname] change event and update Post_Comment [user_firstname]
 	[~] Listen to user [deleted] event
 
->> Friends service - Connections (rest, neo4j, Eureka)
+/=/ Friends service - Connections (rest, neo4j, Eureka)
 	[#] Friend [from_user_id, to_user_id, dateCreated, accepted, dateAccepted, deleted, dateDeleted]
 
->> Notifications service - (rest, redis, messaging receiver, nodejs)
+/=/ Notifications service - (rest, redis, messaging receiver, nodejs)
 	.[#] Notification [id, user_id, content, viewed, dateCreated]
 	.[~] Listen to friends requested event
 	.[~] Listen to friends accepted event
 	.[~] Listen to post_comment created event
 
->> Email service 
+/=/ Email service 
 	[#] email [id, to_email, subject, content, dateSent]
 	[~] Listen to user created event
 
 
-
->> service
+/=/ service
 [#] model
 [~] event
