@@ -12,4 +12,5 @@ The following are the rest operations available to use the user service.
 | Delete User | DELETE <***uri authority***>/api/<***version***>/users/<***userId***> | Success: HTTP Code 200. JSON Response. HTTP Code 404 if user not found |
 
 ***uri authority*** at local could be 'localhost:8089' 
+
 ***version*** at local could be 'v1' 
