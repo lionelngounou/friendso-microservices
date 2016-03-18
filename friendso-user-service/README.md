@@ -2,6 +2,7 @@
 ##**User service - REST operations**
 
 The following are the rest operations available to use the user service.  
+
 | Operation	| HTTP action | Description | 
 | :----- 	| :---- 	| :---- | 
 | Find User by email | GET <***uri authority***>/api/<***version***>/users?email=<***email***> | Success: HTTP Code 200. JSON Response. HTTP Code 404 if user not found |
