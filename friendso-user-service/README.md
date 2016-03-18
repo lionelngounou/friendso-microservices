@@ -10,3 +10,6 @@ The following are the rest operations available to use the user service.
 | Create User | POST <***uri authority***>/api/<***version***>/users | Input: JSON payload. Success: HTTP Code 201. Error: HTTP Code 409, JSON Response |
 | Update User | PUT <***uri authority***>/api/<***version***>/users/<***userId***> | Input: JSON payload. Success: HTTP Code 200. Error: HTTP Code 409, JSON Response. HTTP Code 404 if user not found |
 | Delete User | DELETE <***uri authority***>/api/<***version***>/users/<***userId***> | Success: HTTP Code 200. JSON Response. HTTP Code 404 if user not found |
+
+***uri authority*** at local could be 'localhost:8089' 
+***version*** at local could be 'v1' 
