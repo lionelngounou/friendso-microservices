@@ -2,7 +2,7 @@ package sample.friendso.user.model;
 
 import sample.friendso.user.web.UserCommand;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -19,7 +19,6 @@ import javax.validation.constraints.Size;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.CreatedDate;
 
 /**
@@ -39,45 +38,49 @@ public class User implements Serializable {
     @Column(unique = true, nullable = false, updatable = false)
     private String email;
 
-    @JsonIgnore
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(unique = true, nullable = false, updatable = false)
+    private String aliasName;
+    
     private String password;
     
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 2, max = 100)
     @Column(nullable = false)
     private String firstname; 
     
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 2, max = 100)
     @Column(nullable = false)
     private String lastname;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm a z", timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssz")
     private Date dateCreated; 
     
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm a z", timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssz" /*"dd/MM/yyyy HH:mm a z"*/, timezone = "GMT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
     
-    @JsonIgnore
     @Type(type = "yes_no")
     private Boolean active = Boolean.FALSE;
 
     public User() {
     }
 
-    public User(String email, String password, String firstname, String lastname) {
+    public User(String email, String aliasName, String password, String firstname, String lastname) {
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.aliasName = aliasName;
     }
     
-    public User(UserCommand userForm) {
-        this(userForm.getEmail(), "password", userForm.getFirstname(), userForm.getLastname());
+    public User(UserCommand userCommand) {
+        this(userCommand.getEmail(), userCommand.getAliasName() , userCommand.getPassword(), userCommand.getFirstname(), userCommand.getLastname());
     }
 
     @Override
@@ -153,6 +156,14 @@ public class User implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getAliasName() {
+        return aliasName;
+    }
+
+    public void setAliasName(String aliasName) {
+        this.aliasName = aliasName;
     }
 
     public Date getDateCreated() {

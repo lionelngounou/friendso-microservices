@@ -13,7 +13,9 @@ public interface UserRepository extends CruRepository<User, Integer> {
     
     User findByEmailAndActive(String email, Boolean active);
     
-    User findByEmailAndActiveTrue(String email);
+    User findByEmailAndActiveTrue(String email)
+            ;
+    User findByAliasNameAndActiveTrue(String aliasName);
     
     User findOneByIdAndActive(Integer id, Boolean active);
     
@@ -21,5 +23,8 @@ public interface UserRepository extends CruRepository<User, Integer> {
     
     @Query("select count(u)>0 from User u where u.active = true and u.email = :email")
     boolean existsByEmail(@Param("email") String email);
+    
+    @Query("select count(u)>0 from User u where u.active = true and u.aliasName = :aliasName")
+    boolean existsByAliasName(@Param("aliasName") String aliasName);
     
 }

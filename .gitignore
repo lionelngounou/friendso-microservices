@@ -2,3 +2,17 @@
 .project
 target/
 friendso-user-service/target/
+
+friendso-ui/Thumbs.db
+friendso-ui/.DS_Store
+friendso-ui/.gradle
+friendso-ui/build/
+friendso-ui/.idea
+*.iml
+*.ipr
+*.iws
+friendso-ui/.project
+friendso-ui/.settings
+friendso-ui/.classpath
+
+friendso-friend-service/node_modules/

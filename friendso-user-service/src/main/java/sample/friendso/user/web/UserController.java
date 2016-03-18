@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.validation.Valid;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,15 @@ public class UserController {
     /*-----------------------API--------------------*/
         
     @RequestMapping(method = RequestMethod.GET)
-    public User find(@RequestParam(required = false) String email){
+    public User findByEmail(@RequestParam(required = false) String email){
         log.info("find user by email : " + email);
         return check(userRepository.findByEmailAndActiveTrue(check(email)));
+    }
+    
+    @RequestMapping(value = "/{aliasName}", method = RequestMethod.GET)
+    public User findByAliasName(@PathVariable(value="aliasName") String aliasName){
+        log.info("find user by aliasName : " + aliasName);
+        return check(userRepository.findByAliasNameAndActiveTrue(aliasName));
     }
     
     @RequestMapping(method = RequestMethod.POST)
@@ -93,42 +100,63 @@ public class UserController {
     
     /*-----------------------VALIDATION--------------------*/
     
-    private User check(User user){
+    protected User check(User user){
         if(user==null)
             throw new ResourceNotFoundException("could not find user");
         return user;
     }
     
-    private Integer check(Integer userId){
+    protected Integer check(Integer userId){
         if(userId==null)
             throw new ResourceNotFoundException("could not find user : " + userId);
         return userId;
     }
     
-    private String check(String email){
+    protected String check(String email){
         if(email==null)
             throw new ResourceNotFoundException("could not find user with email : " + email);
         return email;
     }
     
-    private Map getFailureMap(BindingResult result){
+    protected Map getFailureMap(BindingResult result){
         Map<String, Object> em = new LinkedHashMap(FAIL_MAP);
         em.put("errors", ValidationError.getAll(result));
         return em;
     }  
     
     //todo : defer this to a validator class
-    private BindingResult validate(UserCommand userCommand, BindingResult result, boolean isNew){
+    protected BindingResult validate(UserCommand userCommand, BindingResult result, boolean isNew){
         if(userCommand.isEmpty()){
             result.reject("details.required", "details required");
         }
         if(isNew){
+            if(userCommand.getPassword()==null)
+                result.rejectValue("password", "NotNull.userCommand.password", "password may not be null"); 
+            
             if(userCommand.getEmail()==null)
-                result.rejectValue("email", "NotNull.userCommand.email", "may not be null"); 
+                result.rejectValue("email", "NotNull.userCommand.email", "email may not be null");
             else if(userRepository.existsByEmail(userCommand.getEmail()))
-                result.rejectValue("email", "Unique.userCommand.email", "already exists");   
+                result.rejectValue("email", "Unique.userCommand.email", "email already exists"); 
+            
+            if(!result.hasErrors())
+                userCommand.setAliasName(generateAliasName(userCommand, 0));
         }   
         return result;
     }  
+    
+    /*-----------------------HELPERS--------------------*/
+    
+    protected String generateAliasName(UserCommand userCommand, int attempt){
+        String an = buildAliasName(userCommand.getFirstname(), userCommand.getLastname());
+        if (attempt > 0) 
+            an += attempt;
+        if(userRepository.existsByAliasName(an)) //already exists
+            an = generateAliasName(userCommand, ++attempt);
+        return an;
+    }
+    
+    protected static String buildAliasName(String firstname, String lastname){
+        return (firstname.toLowerCase().trim() + "_" +lastname.toLowerCase().trim()).replace(" ", "");
+    }
     
 }

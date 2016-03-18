@@ -28,13 +28,14 @@ public class UserRepositoryTests {
     private UserRepository userRepository;
     
     static final String ORIGINAL_EMAIL = "email@test.com";
+    static final String ORIGINAL_ALIAS = "user_test";
     static final String ORIGINAL_PASSWORD = "password"; 
     static final String ORIGINAL_FIRSTNAME = "u_firstname";
     static final String ORIGINAL_LASTNAME = "u_lastname";
     
     @Before
     public void setUp() {
-        user = new User(ORIGINAL_EMAIL, ORIGINAL_PASSWORD,  ORIGINAL_FIRSTNAME, ORIGINAL_LASTNAME);
+        user = new User(ORIGINAL_EMAIL, ORIGINAL_ALIAS, ORIGINAL_PASSWORD,  ORIGINAL_FIRSTNAME, ORIGINAL_LASTNAME);
         user.setActive(Boolean.TRUE);
         user.setDateCreated(new Date());
     }
@@ -89,6 +90,14 @@ public class UserRepositoryTests {
         
         assertTrue(userRepository.existsByEmail(save().getEmail()));
         assertFalse(userRepository.existsByEmail(deactivate().getEmail()));
+    }
+    
+    @Test
+    public void testExistsByAliasName() {
+        System.out.println("existsByAliasName");
+        
+        assertTrue(userRepository.existsByAliasName(save().getAliasName()));
+        assertFalse(userRepository.existsByAliasName(deactivate().getAliasName()));
     }
     
     private User deactivate(){

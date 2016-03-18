@@ -65,7 +65,7 @@ public class UserCommandTests {
         assertTrue(hasError(prop, NotNull.class));
         userCommand.setFirstname("");
         assertTrue(hasError(prop, Size.class));
-        userCommand.setFirstname("1");
+        userCommand.setFirstname("12");
         assertFalse(hasError(prop, Size.class));
         userCommand.setFirstname(Strings.padStart("", 100, '1'));
         assertFalse(hasError(prop, Size.class));
@@ -80,7 +80,7 @@ public class UserCommandTests {
         assertTrue(hasError(prop, NotNull.class));
         userCommand.setLastname("");
         assertTrue(hasError(prop, Size.class));
-        userCommand.setLastname("1");
+        userCommand.setLastname("12");
         assertFalse(hasError(prop, Size.class));
         userCommand.setLastname(Strings.padStart("", 100, '1'));
         assertFalse(hasError(prop, Size.class));

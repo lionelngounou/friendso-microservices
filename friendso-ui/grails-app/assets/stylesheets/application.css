@@ -1,0 +1,60 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS file within this directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require ../bootstrap/css/bootstrap.min
+*#= require main
+*#= require mobile
+*= require_self
+*/
+
+
+html, body {
+	height: 100%;
+}
+
+#bodyWrapper {
+	min-height: 100%;
+}
+
+#bodyWrapperIn {
+	overflow: auto; 
+	padding-bottom: 100px;
+}
+
+.footer {
+	position: relative;
+	margin-top: -100px;
+	height: 100px;
+	clear: both;
+	padding-top: 20px;
+	xbackground-color:#526274; 
+}
+
+.footer , .footer a {
+	xcolor: #ffffff;
+}
+
+html {
+	display: block;
+	/*min-height: 100%;*/
+}
+
+header {
+	border-bottom-color: #0E3156 !important;
+	xbackground-color: #0E3156 !important;
+}
+
+body {
+	background-color: #FDFDFD;
+    padding-top: 75px; 
+}
+
+.no-rad {
+	border-radius: 0px;
+}

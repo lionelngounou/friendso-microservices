@@ -37,7 +37,7 @@ public class UserApp /*extends RepositoryRestConfigurerAdapter*/ {
             @Override
             public void run(String[] args) throws Exception{
                 System.out.println("@@@% CommandLineRunner with arguments : " + Arrays.deepToString(args));
-                User user = new User("test@user.com", "password", "test", "user");
+                User user = new User("test@user.com", "test_user","password", "test", "user");
                 user.setActive(Boolean.TRUE);
                 user.setDateCreated(new Date());
                 userRepository.save(user);
