@@ -31,7 +31,6 @@ The aim is not only to demonstrate the ability to partition the app, but also th
 ####**Messaging**
 |Topic | Publisher | Consumer| 
 |:--|:--|:--|
-|User Created | User service| |
 |User name(s) updated | User service| Post/Comment service (update names), Friend/Connection service (update names)|
 |New post | Post/Comment service| Notification service (notify friends)|
 |New comment on post | Post/Comment service| Notification service (notify owner of post, and all commentators on post)|
